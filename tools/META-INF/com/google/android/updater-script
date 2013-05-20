@@ -1,0 +1,3 @@
+ui_print("CWM kernel installer");
+ui_print("By: marduk191");
+package_extract_file("boot.img", "/dev/block/platform/msm_sdcc.1/by-num/p8");

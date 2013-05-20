@@ -1,0 +1,4 @@
+./mkbootimg --kernel kernelname --ramdisk ramdiskname --cmdline 'console=ttyHSL0,115200,n8 androidboot.hardware=qcom loglevel=0' --board presto --base 0x40200000 --ramdiskaddr 0x41400000 --output boot.img
+
+
+dd if=/dev/zero of=boot.img bs=4096 count=1 oflag=append conv=notrunc
