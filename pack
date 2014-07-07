@@ -1,0 +1,84 @@
+#!/bin/sh
+## Android p9070 kernel and recovery packer
+## By marduk191
+## email: marduk191@gmail.com
+while getopts ":rkh" flags;
+do
+    case $flags in
+ k)
+	  ## Pack Kernel
+	  echo "boot.img repacker"
+	  echo "Checking for kernel"
+	  if test -e kernel/zImage
+	   then echo "Found!"
+ 	   else echo "Kernel not found!"
+	  exit 
+	  fi
+	  echo "Checking for Ramdisk"
+	  if test -d ramdisk 
+ 	   then echo "Found!" 
+	   else echo "Ramdisk not found!"
+	  exit 
+	  fi
+	  echo "Kernel and Ramdisk found, preparing ramdisk"
+	  sleep 2 
+	  ./tools/mkbootfs ramdisk | gzip > ramdisk.gz
+	  sleep 2
+	  echo "Packing boot.img"
+	  mkdir -p out
+	  ./tools/mkbootimg --kernel kernel/zImage --ramdisk ramdisk.gz --cmdline 'console=ttyHSL0,115200,n8 androidboot.hardware=qcom loglevel=0' --board presto --base 0x40200000 --ramdiskaddr 0x41400000 --output out/boot.img
+	  sleep 2
+	  echo "Adding padding"
+	  dd if=/dev/zero of=out/boot.img bs=4096 count=1 oflag=append conv=notrunc
+	  sleep 2
+	  rm ramdisk.gz
+	  s1=`ls -lh ./boot.img | sed -e 's/.* [ ]*\([0-9]*\.[0-9]*[MK]\) .*/\1/g'`
+	  s2=`ls -lh ./out/boot.img | sed -e 's/.* [ ]*\([0-9]*\.[0-9]*[MK]\) .*/\1/g'`
+	  echo "Size of old imgage: $s1"
+	  echo "Size of new image: $s2"
+	  echo "Final boot.img is in out/boot.img"
+	  echo "Done, press enter to exit"
+	  read ANS
+	;;
+ r)
+	  ## Pack Recovery
+	  echo "Begin packing recovery.."
+	  echo "Checking for raw kernel"
+	  if test -e kernel/zImage
+	   then echo "Kernel Found!"
+	   else echo "Kernel not found!"
+	  exit 
+	  fi
+	  echo "Checking for Ramdisk folder"
+	  if test -d ramdisk 
+	   then echo "Ramdisk folder found!" 
+	   else echo "Ramdisk folder not found!"
+	  exit 
+	  fi
+	  echo "Kernel and Ramdisk found, packing ramdisk"
+	  sleep 2 
+	  ./tools/mkbootfs ramdisk | gzip > ramdisk.gz
+	  sleep 2
+	  echo "Done!"
+	  echo "Packing recovery.img"
+	  mkdir -p out
+	  ./tools/mkbootimg --kernel kernel/zImage --ramdisk ramdisk.gz --cmdline 'console=ttyHSL0,115200,n8 androidboot.hardware=qcom loglevel=0' --board presto --base 0x40200000 --ramdiskaddr 0x41400000 --output out/recovery.img
+	  sleep 2
+	  echo "Adding padding"
+	  dd if=/dev/zero of=out/recovery.img bs=4096 count=1 oflag=append conv=notrunc
+	  sleep 2
+	  rm ramdisk.gz
+	  s1=`ls -lh recovery.img | sed -e 's/.* [ ]*\([0-9]*\.[0-9]*[MK]\) .*/\1/g'`
+	  s2=`ls -lh ./out/recovery.img | sed -e 's/.* [ ]*\([0-9]*\.[0-9]*[MK]\) .*/\1/g'`
+	  echo "Size of old image: $s1"
+	  echo "Size of new image: $s2"
+	  echo "Final recovery image is in out/recovery.img"
+	  echo "Done, press enter to exit"
+	  read ANS
+	;;
+ h)
+	  #Help
+	  echo "./pack -k: packs boot.img and ./pack -r: packs recovery.img " 
+	;;
+    esac
+done

@@ -1,0 +1,56 @@
+#!/bin/sh
+## Android logging script
+## By marduk191
+## email: marduk191@gmail.com
+
+logdir=./logs
+
+mkdir -p $logdir/
+while getopts ":akldh" flags;
+do
+    case $flags in
+        a)
+            ## Dump all
+	    echo "Dumping: kmsg, dmesg, and logcat to the logs directory."
+	    echo "Press ctrl+c to stop dumping."
+            adb shell su -c 'cat /proc/kmsg' > $logdir/kmsg.txt | adb shell logcat > $logdir/logcat.txt | adb shell su -c 'dmesg' > $logdir/dmesg.txt
+            ;;
+        k)
+            ## Dump kmsg
+	    echo "Dumping kmsg to the logs directory."
+	    echo "Press ctrl+c to stop dumping."
+            adb shell su -c 'cat /proc/kmsg' > $logdir/kmsg.txt        
+	    ;;
+        l)
+            ## Dump logcat
+            echo "Dumping logcat to the logs directory."
+	    echo "Press ctrl+c to stop dumping."
+            adb shell logcat > $logdir/logcat.txt
+ 	    ;;
+        d)
+            ## Dump dmesg
+            echo "Dumping dmesg to the logs directory."
+	    echo "Press ctrl+c to stop dumping."
+            adb shell su -c 'dmesg' > $logdir/dmesg.txt
+            echo "dmesg complete!"
+            ;;
+        h)
+	    ## help
+	    echo "Usage: ./log <flag>"
+	    echo "	-a dumps kmsg, dmesg, and logcat to the logs directory."
+	    echo "	-d dumps dmesg to the logs directory."
+	    echo "	-k dumps kmsg to the logs directory."
+	    echo "	-l dumps logcat to the logs directory."
+            echo ""
+	    echo "Example: ./log -a"
+	    echo "to log kmsg, dmesg, and logcat."
+	    ;;
+	*)
+            ## invalid option
+	    echo "invalid option -$OPTARG" 
+            ;;
+    esac
+done
+	    echo "run with the -h switch for help"
+
+

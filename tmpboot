@@ -1,0 +1,25 @@
+#!/bin/sh
+## Android p9070 fastboot kernel and recovery
+## By marduk191
+## email: marduk191@gmail.com
+while getopts ":brh" flags;
+do
+    case $flags in
+ r)
+	## Temp boot a recovery
+	adb reboot bootloader
+	fastboot wait-for-device
+	fastboot boot recovery.img
+	;;
+ b)
+	## Temp boot a boot.img
+	adb reboot bootloader
+	fastboot wait-for-device
+	fastboot boot boot.img
+	;;
+ h)
+	## Help
+	  echo "./tmpboot -b: Temp boots a boot.img and ./tmpboot -r: Temp boots a recovery.img " 
+	;;
+    esac
+done

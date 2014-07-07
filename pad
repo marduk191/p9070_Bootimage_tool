@@ -1,0 +1,21 @@
+#!/bin/sh
+## Android p9070 boot image padder
+## By marduk191
+## email: marduk191@gmail.com
+while getopts ":brh" flags;
+do
+    case $flags in
+b)
+	##Pad bootimg
+	dd if=/dev/zero of=boot.img bs=4096 count=1 oflag=append conv=notrunc
+	;;
+r)
+	## Pad recovery
+	dd if=/dev/zero of=recovery.img bs=4096 count=1 oflag=append conv=notrunc
+	;;
+h)
+	## Help
+	  echo "./pad -b: pads boot.img and ./pad -r: pads recovery.img " 
+	;;
+    esac
+done

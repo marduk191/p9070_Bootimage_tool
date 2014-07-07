@@ -1,4 +1,4 @@
-echo "Cleaning old files"
+#!/bin/sh
 if test -d ramdisk
 then rm -rf ramdisk
 fi
@@ -14,3 +14,7 @@ fi
 if test -e recovery.img
 then rm recovery.img
 fi
+if test -d logs
+then rm -rf logs
+fi
+echo "Cleaning complete!"
