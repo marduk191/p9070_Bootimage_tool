@@ -10,7 +10,7 @@ You can use the flag -h for a short description of how to use any of the scripts
 
    Usage: ./dump <switch>
    
-   Options:
+    Options:
     -r	Dumps a copy of recovery.img from the device
     -b	Dumps a copy of boot.img from the device
 
@@ -28,11 +28,11 @@ You can use the flag -h for a short description of how to use any of the scripts
 
    Usage: ./log <flag>
 
-   Options
-     -a dumps kmsg, dmesg, and logcat to the logs directory."
-     -d dumps dmesg to the logs directory."
-     -k dumps kmsg to the logs directory."
-     -l dumps logcat to the logs directory."
+    Options
+    -a dumps kmsg, dmesg, and logcat to the logs directory."
+    -d dumps dmesg to the logs directory."
+    -k dumps kmsg to the logs directory."
+    -l dumps logcat to the logs directory."
    
    Example: ./log -a
      to log kmsg, dmesg, and logcat.
