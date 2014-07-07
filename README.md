@@ -1,6 +1,7 @@
-Boot image toolkit for the Pantech Burst/p9070/Presto
+Boot image toolkit
+for the Pantech Burst/p9070/Presto
 By: marduk191
-Version 1.0
+Version 2.0
 
 
 You can use the flag -h for a short description of how to use any of the scripts.
@@ -8,7 +9,8 @@ You can use the flag -h for a short description of how to use any of the scripts
 1.dump
 
    Usage: ./dump <switch>
-    Options:
+   
+   Options:
     -r	Dumps a copy of recovery.img from the device
     -b	Dumps a copy of boot.img from the device
 
@@ -24,8 +26,9 @@ You can use the flag -h for a short description of how to use any of the scripts
 
 3.log
 
-   Usage: ./log <flag>"
-     Options
+   Usage: ./log <flag>
+
+   Options
      -a dumps kmsg, dmesg, and logcat to the logs directory."
      -d dumps dmesg to the logs directory."
      -k dumps kmsg to the logs directory."
