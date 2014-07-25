@@ -1,21 +1,23 @@
-#!/bin/sh
+#!/bin/bash
 ## Android p9070 kernel and recovery dumper
 ## By marduk191
 ## email: marduk191@gmail.com
+function dumper 
+{
+         adb shell su -c "dd if=$1 of=$2"
+	 adb pull "$2"
+	 adb shell su -c "rm $2"
+}
 while getopts ":br" flags;
 do
     case $flags in
  b)
 	## Dump boot image
-	 adb shell su -c 'dd if=/dev/block/mmcblk0p8 of=/sdcard/boot.img'
-	 adb pull /sdcard/boot.img
-	 adb shell su -c 'rm /sdcard/boot.img'
+	 dumper /dev/block/mmcblk0p8 /sdcard/boot.img
 	;;
  r)
 	## Dump recovery image
-	 adb shell su -c 'dd if=/dev/block/platform/msm_sdcc.1/by-num/p18 of=/sdcard/recovery.img'
-	 adb pull /sdcard/recovery.img
-	 adb shell su -c 'rm /sdcard/recovery.img'
+	 dumper /dev/block/platform/msm_sdcc.1/by-num/p18 /sdcard/recovery.img
 	;;
  *)
 	##Help
@@ -26,3 +28,4 @@ do
 	;;
     esac
 done
+
