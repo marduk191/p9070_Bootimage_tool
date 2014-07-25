@@ -17,5 +17,11 @@ h)
 	## Help
 	  echo "./pad -b: pads boot.img and ./pad -r: pads recovery.img " 
 	;;
+*)
+            ## invalid option
+	    echo "invalid option -$OPTARG" 
+            ;;
     esac
 done
+
+echo "run with the -h switch for help"
