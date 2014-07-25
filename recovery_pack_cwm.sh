@@ -41,10 +41,10 @@ cd ..
 s1=`ls -lh recovery.img | sed -e 's/.* [ ]*\([0-9]*\.[0-9]*[MK]\) .*/\1/g'`
 cd out 
 s2=`ls -lh recovery.img | sed -e 's/.* [ ]*\([0-9]*\.[0-9]*[MK]\) .*/\1/g'`
-rm boot.img 
 tput setaf 6
 echo "Size of old recovery: $s1" 
 echo "Size of new recovery: $s2"
+rm boot.img 
 tput setaf 1
 echo "Flashable recovery is in  out/p9070_Recovery.zip"
 tput sgr0
