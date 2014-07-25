@@ -17,9 +17,12 @@ do
 	 adb pull /sdcard/recovery.img
 	 adb shell su -c 'rm /sdcard/recovery.img'
 	;;
- h)
+ *)
 	##Help
+         clear
+	 echo " "
 	 echo "./dump -b: Dumps a copy of boot.img and ./dump -r: Dumps a copy of recovery.img " 
+	 echo " "	
 	;;
     esac
 done
