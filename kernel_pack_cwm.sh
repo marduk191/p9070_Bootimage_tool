@@ -26,7 +26,7 @@ sleep 2
 sleep 2
 echo "Packing boot.img"
 mkdir -p out
-./tools/mkbootimg --kernel kernel/zImage --ramdisk ramdisk.gz --cmdline 'console=ttyHSL0,115200,n8 androidboot.hardware=qcom loglevel=0' --board presto --base 0x40200000 --ramdiskaddr 0x41400000 --output out/boot.img
+./tools/mkbootimg --kernel kernel/zImage --ramdisk ramdisk.gz --cmdline 'console=ttyHSL0,115200,n8 androidboot.hardware=qcom loglevel=0' --board presto --base 0x40200000 --ramdisk_offset 0x01400000 --output out/boot.img
 sleep 2
 echo "Adding padding"
 dd if=/dev/zero of=out/boot.img bs=4096 count=1 oflag=append conv=notrunc

@@ -19,7 +19,7 @@ do
             ## Dump kmsg
 	    echo "Dumping kmsg to the logs directory."
 	    echo "Press ctrl+c to stop dumping."
-            adb shell su -c 'cat /proc/kmsg' > $logdir/kmsg.txt        
+            adb shell su -c 'cat /proc/kmsg' > $logdir/kmsg.txt
 	    ;;
         l)
             ## Dump logcat
@@ -47,7 +47,7 @@ do
 	    ;;
 	*)
             ## invalid option
-	    echo "invalid option -$OPTARG" 
+	    echo "invalid option -$OPTARG"
             ;;
     esac
 done
